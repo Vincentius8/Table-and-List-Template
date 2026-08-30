@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>HTML Lists &amp; Tables — Full Reference</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: white;
+    color: #111;
+  }
+  h1 { font-size: 22px; }
+  h2 {
+    font-size: 17px;
+    background-color: black;
+    color: white;
+    padding: 8px 12px;
+    margin-top: 40px;
+  }
+  .desc { margin: 8px 0; font-size: 14px; }
+  .row {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+  }
+  .demo-box {
+    border: 2px solid black;
+    padding: 15px;
+    min-width: 220px;
+    min-height: 60px;
+    width: 340px;
+  }
+  .demo-label {
+    font-weight: bold;
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+  .usecase {
+    background-color: #e7f5ff;
+    border-left: 4px solid #1971c2;
+    padding: 10px 14px;
+    font-size: 13px;
+    margin: 8px 0 20px 0;
+    max-width: 760px;
+  }
+  .usecase b { color: #1971c2; }
+  .code {
+    background-color: #1e1e1e;
+    color: #d4d4d4;
+    font-family: monospace;
+    font-size: 12px;
+    padding: 10px;
+    white-space: pre;
+    overflow-x: auto;
+    min-width: 280px;
+  }
+
+  /* ============ list demos ============ */
+  .demo-box ul, .demo-box ol { padding-left: 24px; font-size: 14px; }
+  .demo-box li { margin-bottom: 4px; }
+  .list-none { list-style: none; padding-left: 0; }
+  .list-none li { padding: 6px 10px; background-color: #a5d8ff; margin-bottom: 4px; border-radius: 4px; }
+
+  dl.demo-dl dt { font-weight: bold; font-size: 13px; margin-top: 8px; }
+  dl.demo-dl dd { font-size: 13px; margin-left: 16px; color: #333; }
+
+  /* ============ table base styling used across demos ============ */
+  table.demo-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  table.demo-table th, table.demo-table td {
+    border: 1px solid #ccc;
+    padding: 6px 10px;
+    text-align: left;
+  }
+  table.demo-table th { background-color: #e9ecef; }
+
+  table.zebra tbody tr:nth-child(even) { background-color: #f8f9fa; }
+  table.hoverable tbody tr:hover { background-color: #d0ebff; }
+
+  caption.demo-caption {
+    font-size: 12px;
+    color: #555;
+    text-align: left;
+    margin-bottom: 6px;
+    caption-side: top;
+  }
+
+  .table-scroll-wrapper {
+    overflow-x: auto;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  .code-section { max-width: 900px; margin: 40px auto 0 auto; }
+  .code-box { background-color: lightyellow; border: 1px solid gray; padding: 15px; }
+  .code-box pre { margin: 0; font-family: monospace; white-space: pre; overflow-x: auto; }
+  .copy-btn { background-color: gray; color: white; border: 1px solid black; padding: 6px 12px; margin-bottom: 10px; cursor: pointer; }
+</style>
+</head>
+<body>
+
+<h1>HTML Lists &amp; Tables — Full Reference</h1>
+<p class="desc">Lists group related items. Tables display data in rows and columns. Both have accessibility rules that are easy to skip but matter a lot.</p>
+
+<h2>0a. Interactive Playground — List Styles</h2>
+<div style="border:2px solid black; padding:15px; margin-bottom:30px; background-color:#f8f9fa;">
+  <div style="display:flex; flex-wrap:wrap; gap:20px; margin-bottom:15px; font-size:13px;">
+    <label>list-style-type:
+      <select id="ctrlListType">
+        <option value="disc">disc</option>
+        <option value="circle">circle</option>
+        <option value="square">square</option>
+        <option value="decimal">decimal</option>
+        <option value="upper-roman">upper-roman</option>
+        <option value="lower-alpha">lower-alpha</option>
+        <option value="none">none</option>
+      </select>
+    </label>
+    <label>list-style-position:
+      <select id="ctrlListPosition">
+        <option value="outside">outside</option>
+        <option value="inside">inside</option>
+      </select>
+    </label>
+  </div>
+  <ul id="listPlayground" style="font-size:14px;">
+    <li>Nike Air Force 1</li>
+    <li>Adidas Ultraboost</li>
+    <li>Converse Chuck 70</li>
+  </ul>
+  <div class="code" style="margin-top:10px;">
+Live CSS: <span id="liveCssList">list-style-type: disc; list-style-position: outside;</span>
+  </div>
+</div>
+
+<h2>0b. Interactive Playground — Table Styles</h2>
+<div style="border:2px solid black; padding:15px; margin-bottom:30px; background-color:#f8f9fa;">
+  <div style="display:flex; flex-wrap:wrap; gap:20px; margin-bottom:15px; font-size:13px;">
+    <label><input type="checkbox" id="ctrlZebra"> zebra striping</label>
+    <label><input type="checkbox" id="ctrlHover"> row hover</label>
+    <label><input type="checkbox" id="ctrlBorders" checked> borders</label>
+  </div>
+  <table id="tablePlayground" class="demo-table" style="width:100%;">
+    <thead>
+      <tr><th>Product</th><th>Size</th><th>Price</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Nike Air Force 1</td><td>40</td><td>₱4,995</td></tr>
+      <tr><td>Adidas Ultraboost</td><td>41</td><td>₱6,200</td></tr>
+      <tr><td>Converse Chuck 70</td><td>39</td><td>₱3,450</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>1. Unordered list — &lt;ul&gt;</h2>
+<div class="usecase">
+  <b>Where used:</b> Navigation menus, feature lists, ingredient lists — any items where ORDER doesn't matter.<br>
+  <b>When to use:</b> When items could be reordered without changing meaning.<br>
+  <b>Why needed:</b> Screen readers announce "list, 3 items" and let users jump between items — using plain &lt;div&gt;s loses that navigation entirely.
+</div>
+<div class="row">
+  <div class="demo-box">
+    <div class="demo-label">Default bullets</div>
+    <ul>
+      <li>Nike Air Force 1</li>
+      <li>Adidas Ultraboost</li>
+      <li>Converse Chuck 70</li>
+    </ul>
+  </div>
+  <div class="code">&lt;ul&gt;
+  &lt;li&gt;Nike Air Force 1&lt;/li&gt;
+  &lt;li&gt;Adidas Ultraboost&lt;/li&gt;
+  &lt;li&gt;Converse Chuck 70&lt;/li&gt;
+&lt;/ul&gt;</div>
+</div>
+
+<h2>2. Ordered list — &lt;ol&gt;</h2>
+<div class="usecase">
+  <b>Where used:</b> Recipe steps, setup instructions, rankings/leaderboards — anything where SEQUENCE matters.<br>
+  <b>When to use:</b> When reordering the items would break the meaning (step 3 before step 1 makes no sense).<br>
+  <b>Why needed:</b> Browsers auto-number these for you, and the type/start/reversed attributes give you numbering control without manually typing "1. 2. 3."
+</div>
+<div class="row">
+  <div class="demo-box">
+    <div class="demo-label">Default (decimal) numbering</div>
+    <ol>
+      <li>Preheat the oven</li>
+      <li>Mix the batter</li>
+      <li>Bake for 25 minutes</li>
+    </ol>
+  </div>
+  <div class="code">&lt;ol&gt;
+  &lt;li&gt;Preheat the oven&lt;/li&gt;
+  &lt;li&gt;Mix the batter&lt;/li&gt;
+  &lt;li&gt;Bake for 25 minutes&lt;/li&gt;
+&lt;/ol&gt;</div>
+</div>
+<div class="row">
+  <div class="demo-box">
+    <div class="demo-label">type="A" + start="3" + reversed</div>
+    <ol type="A" start="3" reversed>
+      <li>Third place</li>
+      <li>Second place</li>
+      <li>First place</li>
+    </ol>
+  </div>
+  <div class="code">&lt;ol type="A" start="3" reversed&gt;
+  &lt;li&gt;Third place&lt;/li&gt;
+  &lt;li&gt;Second place&lt;/li&gt;
+  &lt;li&gt;First place&lt;/li&gt;
+&lt;/ol&gt;
+/* type: 1 | A | a | I | i
+   start: number to begin counting from
+   reversed: counts DOWN instead of up */</div>
+</div>
+
+<h2>3. Nested lists</h2>
+<div class="usecase">
+  <b>Where used:</b> Multi-level navigation menus, table of contents, category/sub-category listings.<br>
+  <b>When to use:</b> When items have a parent-child relationship (a category with sub-items).<br>
+  <b>Why needed:</b> Nesting the &lt;ul&gt; INSIDE the &lt;li&gt; (not after it) is what creates real hierarchy — screen readers announce the nesting level.
+</div>
+<div class="row">
+  <div class="demo-box">
+    <div class="demo-label">A sub-list nested inside a list item</div>
+    <ul>
+      <li>Men's Shoes
+        <ul>
+          <li>Running</li>
+          <li>Basketball</li>
+        </ul>
+      </li>
+      <li>Women's Shoes</li>
+    </ul>
+  </div>
+  <div class="code">&lt;ul&gt;
+  &lt;li&gt;Men's Shoes
+    &lt;ul&gt;
+      &lt;li&gt;Running&lt;/li&gt;
+      &lt;li&gt;Basketball&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Women's Shoes&lt;/li&gt;
+&lt;/ul&gt;
+/* the inner &lt;ul&gt; goes INSIDE the &lt;li&gt;,
+   not as a sibling after it */</div>
+</div>
+
+<h2>4. Description list — &lt;dl&gt; &lt;dt&gt; &lt;dd&gt;</h2>
+<div class="usecase">
+  <b>Where used:</b> FAQs, glossary/term definitions, product spec sheets (label: value pairs).<br>
+  <b>When to use:</b> When you have a term/label paired with its description/value — not just a plain list of items.<br>
+  <b>Why needed:</b> This is the semantically correct tag for label-value pairs — more meaningful than a &lt;ul&gt; with bold text pretending to be a label.
+</div>
+<div class="row">
+  <div class="demo-box">
+    <div class="demo-label">Term + description pairs</div>
+    <dl class="demo-dl">
+      <dt>Material</dt>
+      <dd>Genuine leather upper</dd>
+      <dt>Warranty</dt>
+      <dd>6 months against manufacturing defects</dd>
+    </dl>
+  </div>
+  <div class="code">&lt;dl&gt;
+  &lt;dt&gt;Material&lt;/dt&gt;
+  &lt;dd&gt;Genuine leather upper&lt;/dd&gt;
+
+  &lt;dt&gt;Warranty&lt;/dt&gt;
+  &lt;dd&gt;6 months against manufacturing defects&lt;/dd&gt;
+&lt;/dl&gt;
+/* dl = description list, dt = term, dd = its description */</div>
+</div>
+
+<h2>5. Custom list styling (removing bullets, custom markers)</h2>
+<div class="usecase">
+  <b>Where used:</b> Navigation menus (bullets removed), custom checkmarked feature lists, styled card-like list items.<br>
+  <b>When to use:</b> When the DEFAULT bullet doesn't fit the design, but the semantic &lt;ul&gt;/&lt;li&gt; structure should stay (for accessibility).<br>
+  <b>Why needed:</b> Removing bullets via CSS (list-style: none) keeps the semantic meaning for screen readers while giving full visual freedom — better than using &lt;div&gt;s.
+</div>
+<div class="row">
+  <div class="demo-box">
+    <div class="demo-label">list-style: none + custom card styling</div>
+    <ul class="list-none">
+      <li>✓ Free shipping over ₱2,000</li>
+      <li>✓ 7-day return policy</li>
+      <li>✓ Cash on delivery available</li>
+    </ul>
+  </div>
+  <div class="code">ul {
+  list-style: none;  /* removes the bullet */
+  padding-left: 0;
+}
+li {
+  background-color: #a5d8ff;
+  padding: 6px 10px;
+  border-radius: 4px;
+}
+/* still semantically a list — screen readers
+   still announce "list, 3 items" */</div>
+</div>
+
+<h2>6. Table basics — &lt;table&gt; &lt;thead&gt; &lt;tbody&gt; &lt;tr&gt; &lt;th&gt; &lt;td&gt;</h2>
+<div class="usecase">
+  <b>Where used:</b> Pricing comparison tables, order summaries, spec sheets, any tabular DATA (not for page layout — that's what Grid/Flexbox are for).<br>
+  <b>When to use:</b> Only for actual tabular data with rows AND columns that relate to each other.<br>
+  <b>Why needed:</b> thead/tbody let browsers/screen readers distinguish headers from data; th (vs td) is announced differently, telling users "this is a column/row label."
+</div>
+<div class="row">
+  <div class="demo-box" style="width:400px;">
+    <div class="demo-label">Basic structured table</div>
+    <table class="demo-table">
+      <thead>
+        <tr><th>Product</th><th>Size</th><th>Price</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Nike Air Force 1</td><td>40</td><td>₱4,995</td></tr>
+        <tr><td>Adidas Ultraboost</td><td>41</td><td>₱6,200</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="code">&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Product&lt;/th&gt;
+      &lt;th&gt;Size&lt;/th&gt;
+      &lt;th&gt;Price&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Nike Air Force 1&lt;/td&gt;
+      &lt;td&gt;40&lt;/td&gt;
+      &lt;td&gt;₱4,995&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</div>
+</div>
+
+<h2>7. colspan &amp; rowspan (merging cells)</h2>
+<div class="usecase">
+  <b>Where used:</b> Order summaries with a "Total" row spanning multiple columns, schedules with a cell spanning multiple time slots.<br>
+  <b>When to use:</b> When one cell logically needs to cover the space of multiple columns or rows.<br>
+  <b>Why needed:</b> Without this, you can't represent a "this label applies to 3 columns" relationship — the table would need extra empty cells instead.
+</div>
+<div class="row">
+  <div class="demo-box" style="width:400px;">
+    <div class="demo-label">colspan="2" merges the total row's label</div>
+    <table class="demo-table">
+      <tbody>
+        <tr><td>Nike Air Force 1</td><td>x1</td><td>₱4,995</td></tr>
+        <tr><td>Adidas Ultraboost</td><td>x1</td><td>₱6,200</td></tr>
+        <tr><td colspan="2" style="text-align:right; font-weight:bold;">Total</td><td style="font-weight:bold;">₱11,195</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="code">&lt;tr&gt;
+  &lt;td colspan="2"&gt;Total&lt;/td&gt;
+  &lt;td&gt;₱11,195&lt;/td&gt;
+&lt;/tr&gt;
+/* colspan="2" makes this cell take up
+   the width of 2 normal columns */
+
+&lt;!-- rowspan works the same way, but vertically --&gt;
+&lt;td rowspan="2"&gt;Spans 2 rows&lt;/td&gt;</div>
+</div>
+
+<h2>8. caption (table title)</h2>
+<div class="usecase">
+  <b>Where used:</b> Any table that needs a title/description — especially when there are multiple tables on one page.<br>
+  <b>When to use:</b> Whenever a heading-like label is needed for the table's purpose.<br>
+  <b>Why needed:</b> Screen readers announce the caption when entering the table — much better than a plain &lt;p&gt; or &lt;h3&gt; floating above it with no programmatic link.
+</div>
+<div class="row">
+  <div class="demo-box" style="width:400px;">
+    <div class="demo-label">Table with a caption</div>
+    <table class="demo-table">
+      <caption class="demo-caption">Order #1042 — August 2026</caption>
+      <thead>
+        <tr><th>Item</th><th>Price</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Nike Air Force 1</td><td>₱4,995</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="code">&lt;table&gt;
+  &lt;caption&gt;Order #1042 — August 2026&lt;/caption&gt;
+  &lt;thead&gt;...&lt;/thead&gt;
+  &lt;tbody&gt;...&lt;/tbody&gt;
+&lt;/table&gt;</div>
+</div>
+
+<h2>9. scope attribute (table accessibility)</h2>
+<div class="usecase">
+  <b>Where used:</b> Any data table with headers on both the top row AND the left column (like a comparison matrix).<br>
+  <b>When to use:</b> Whenever a &lt;th&gt; needs to clarify whether it labels a COLUMN or a ROW.<br>
+  <b>Why needed:</b> Without scope, screen readers can only guess. scope="col" or scope="row" makes it explicit, so users navigating cell-by-cell hear the correct header.
+</div>
+<div class="row">
+  <div class="demo-box" style="width:420px;">
+    <div class="demo-label">Row headers using scope="row"</div>
+    <table class="demo-table">
+      <thead>
+        <tr><th scope="col">Size</th><th scope="col">Stock</th></tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">39</th><td>12</td></tr>
+        <tr><th scope="row">40</th><td>5</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="code">&lt;thead&gt;
+  &lt;tr&gt;
+    &lt;th scope="col"&gt;Size&lt;/th&gt;
+    &lt;th scope="col"&gt;Stock&lt;/th&gt;
+  &lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+    &lt;th scope="row"&gt;39&lt;/th&gt;
+    &lt;td&gt;12&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;</div>
+</div>
+
+<h2>10. Responsive tables (horizontal scroll wrapper)</h2>
+<div class="usecase">
+  <b>Where used:</b> Wide tables (many columns) viewed on narrow mobile screens.<br>
+  <b>When to use:</b> Whenever a table is too wide to fit a phone screen without squishing every column unreadably small.<br>
+  <b>Why needed:</b> Wrapping the table in a scrollable container lets the table keep its natural width — the user scrolls sideways instead of everything becoming unreadable.
+</div>
+<div class="row">
+  <div class="demo-box" style="width:280px;">
+    <div class="demo-label">Narrow box, wide table — scroll sideways to see it all</div>
+    <div class="table-scroll-wrapper">
+      <table class="demo-table" style="width:500px;">
+        <thead><tr><th>Product</th><th>Size</th><th>Color</th><th>Stock</th><th>Price</th></tr></thead>
+        <tbody>
+          <tr><td>Air Force 1</td><td>40</td><td>White</td><td>12</td><td>₱4,995</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="code">.table-scroll-wrapper {
+  overflow-x: auto;
+}
+&lt;div class="table-scroll-wrapper"&gt;
+  &lt;table&gt;...&lt;/table&gt;
+&lt;/div&gt;
+/* table keeps its natural width,
+   wrapper scrolls instead of squishing columns */</div>
+</div>
+
+<div class="code-section">
+  <h2 style="background-color: lightyellow; color: black;">All Tags &amp; Attributes — Copy-Paste Cheat Sheet</h2>
+  <div class="code-box">
+    <button class="copy-btn" onclick="copyCode()">Copy Code</button>
+    <pre id="codeBlock">&lt;!-- ================= LISTS ================= --&gt;
+
+&lt;ul&gt;                      &lt;!-- unordered list --&gt;
+  &lt;li&gt;Item&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ol type="1" start="1" reversed&gt;  &lt;!-- ordered list --&gt;
+  &lt;li&gt;Item&lt;/li&gt;                  &lt;!-- type: 1 | A | a | I | i --&gt;
+&lt;/ol&gt;
+
+&lt;dl&gt;                      &lt;!-- description list --&gt;
+  &lt;dt&gt;Term&lt;/dt&gt;
+  &lt;dd&gt;Description&lt;/dd&gt;
+&lt;/dl&gt;
+
+/* CSS for lists */
+ul, ol {
+  list-style-type: disc;   /* disc | circle | square | decimal |
+                               upper-roman | lower-alpha | none */
+  list-style-position: outside; /* outside | inside */
+  list-style: none;        /* shorthand to remove bullets entirely */
+}
+
+
+&lt;!-- ================= TABLES ================= --&gt;
+
+&lt;table&gt;
+  &lt;caption&gt;Table title&lt;/caption&gt;
+
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th scope="col"&gt;Column Header&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th scope="row"&gt;Row Header&lt;/th&gt;  &lt;!-- optional --&gt;
+      &lt;td&gt;Data cell&lt;/td&gt;
+      &lt;td colspan="2"&gt;Spans 2 columns&lt;/td&gt;
+      &lt;td rowspan="2"&gt;Spans 2 rows&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+
+  &lt;tfoot&gt;
+    &lt;tr&gt;&lt;td colspan="2"&gt;Total&lt;/td&gt;&lt;td&gt;₱0.00&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tfoot&gt;
+&lt;/table&gt;
+
+/* CSS for tables */
+table {
+  width: 100%;
+  border-collapse: collapse;  /* removes double borders between cells */
+}
+th, td {
+  border: 1px solid #ccc;
+  padding: 8px 12px;
+  text-align: left;
+}
+th { background-color: #f1f3f5; }
+
+/* zebra striping */
+tbody tr:nth-child(even) { background-color: #f8f9fa; }
+
+/* row hover highlight */
+tbody tr:hover { background-color: #d0ebff; }
+
+/* responsive wrapper for wide tables */
+.table-scroll-wrapper { overflow-x: auto; }</pre>
+  </div>
+</div>
+
+<script>
+  /* List playground */
+  const listPlayground = document.getElementById('listPlayground');
+  const ctrlListType = document.getElementById('ctrlListType');
+  const ctrlListPosition = document.getElementById('ctrlListPosition');
+  const liveCssList = document.getElementById('liveCssList');
+
+  function renderListPlayground() {
+    const type = ctrlListType.value;
+    const position = ctrlListPosition.value;
+    listPlayground.style.listStyleType = type;
+    listPlayground.style.listStylePosition = position;
+    liveCssList.innerText = `list-style-type: ${type}; list-style-position: ${position};`;
+  }
+  [ctrlListType, ctrlListPosition].forEach(el => el.addEventListener('input', renderListPlayground));
+  renderListPlayground();
+
+  /* Table playground */
+  const tablePlayground = document.getElementById('tablePlayground');
+  const ctrlZebra = document.getElementById('ctrlZebra');
+  const ctrlHover = document.getElementById('ctrlHover');
+  const ctrlBorders = document.getElementById('ctrlBorders');
+
+  function renderTablePlayground() {
+    tablePlayground.classList.toggle('zebra', ctrlZebra.checked);
+    tablePlayground.classList.toggle('hoverable', ctrlHover.checked);
+    tablePlayground.querySelectorAll('th, td').forEach(cell => {
+      cell.style.border = ctrlBorders.checked ? '1px solid #ccc' : 'none';
+    });
+  }
+  [ctrlZebra, ctrlHover, ctrlBorders].forEach(el => el.addEventListener('input', renderTablePlayground));
+  renderTablePlayground();
+
+  function copyCode() {
+    const code = document.getElementById('codeBlock').innerText;
+    navigator.clipboard.writeText(code).then(() => {
+      const btn = document.querySelector('.copy-btn');
+      const original = btn.innerText;
+      btn.innerText = 'Copied!';
+      setTimeout(() => { btn.innerText = original; }, 1500);
+    });
+  }
+</script>
+
+</body>
+</html>
